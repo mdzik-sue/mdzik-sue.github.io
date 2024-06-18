@@ -1,1 +1,12 @@
-https://jozefrobotnik.katowice.pl/aktualnosci/na-zywo-z-naszego-kosciola-2.html
+#!/usr/bin/python
+from urllib.request import urlopen
+import re
+import sys, os
+
+pageUrl = "https://jozefrobotnik.katowice.pl/aktualnosci/na-zywo-z-naszego-kosciola-2.html"
+html = urlopen(pageUrl).read().decode('utf-8')
+url_extract_pattern = "[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)"
+allUrls = re.findall(url_extract_pattern, html)
+r = re.compile(".*youtu.*")
+embedUrl = list(filter(r.match, allUrls))[0]
+print(embedUrl)
